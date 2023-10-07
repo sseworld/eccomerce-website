@@ -1,7 +1,30 @@
 import styled from "styled-components";
+import { useCartContext } from "../../redux/context/cartContext";
+import CartItem from "../../components/CartItem";
 
 const Cart = () => {
-  return <Wrapper></Wrapper>;
+  const { cart } = useCartContext();
+  console.log(cart);
+  return (
+    <Wrapper>
+      <div className="container">
+        <div className="cart_heading grid grid-five-column">
+          <p>Item</p>
+          <p className="cart-hide">Price</p>
+          <p>Quantity</p>
+          <p className="cart-hide">Subtotal</p>
+          <p>Remove</p>
+        </div>
+        <hr />
+        <div className="cart-item">
+          {cart.map((curElem) => {
+            return <CartItem key={curElem.id} {...curElem} />
+          })}
+        </div>
+        <hr />
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`

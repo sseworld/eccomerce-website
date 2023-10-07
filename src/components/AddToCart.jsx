@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaCheck } from "react-icons/fa";
 import { Button } from "../pages/js/style/Button";
 import CartAmountToggle from "./CartAmountToggle";
 import { NavLink } from "react-router-dom";
+import { useCartContext } from "../redux/context/cartContext";
+import { toast } from "react-toastify";
 
 const AddToCart = ({ product }) => {
-  const { is, colors, stock } = product;
+  const { addToCart } = useCartContext();
+  const { id, colors, stock } = product;
   const [color, setColor] = useState(colors[0]);
   const [amount, setAmount] = useState(1);
+  const [goCart, setGoCart] = useState(false);
 
   const setDecrease = () => {
     amount > 1 ? setAmount(amount - 1) : setAmount(1);
@@ -17,6 +21,20 @@ const AddToCart = ({ product }) => {
   const setIncrease = () => {
     amount < stock ? setAmount(amount + 1) : setAmount(stock);
   };
+
+  const addToCt = (e) => {
+    e.preventDefault;
+    addToCart(id, color, amount, product);
+    // setGoCart(true);
+    toast.success("Added Successfully");
+  };
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setGoCart(false);
+  //   }, 10000);
+  // }, [goCart]);
+
   return (
     <Wrapper>
       <div className="colors">
@@ -44,9 +62,19 @@ const AddToCart = ({ product }) => {
         setIncrease={setIncrease}
       />
 
-      <NavLink to="/cart">
-        <Button className="btn"> Add To Cart </Button>
-      </NavLink>
+      {/* <NavLink to="/cart"> */}
+      <Button className="btn" onClick={addToCt}>
+        Add To Cart
+      </Button>
+      {/* </NavLink> */}
+
+      {goCart && (
+        <NavLink to="/cart">
+          <Button className="btn">
+            Go To Cart
+          </Button>
+        </NavLink>
+      )}
     </Wrapper>
   );
 };

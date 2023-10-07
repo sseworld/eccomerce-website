@@ -12,6 +12,10 @@ import { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import Footer from "./pages/js/Footer";
 
+// Toastify Alerts 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const theme = {
     colors: {
@@ -53,6 +57,7 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
+        <ToastContainer />
       </BrowserRouter>
     </ThemeProvider>
   );
