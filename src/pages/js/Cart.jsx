@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import { useCartContext } from "../../redux/context/cartContext";
 import CartItem from "../../components/CartItem";
+import { NavLink } from "react-router-dom";
+import { Button } from "../js/style/Button";
+import FormatPrice from "../../redux/helper/FormatPrice";
 
 const Cart = () => {
-  const { cart } = useCartContext();
-  console.log(cart);
+  const { cart, clearCart, total_price, shipping_fee } = useCartContext();
+
   return (
     <Wrapper>
       <div className="container">
@@ -16,12 +19,53 @@ const Cart = () => {
           <p>Remove</p>
         </div>
         <hr />
-        <div className="cart-item">
-          {cart.map((curElem) => {
-            return <CartItem key={curElem.id} {...curElem} />
-          })}
-        </div>
+        {cart.length === 0 ? (
+          <h1> Nothing To Buy </h1>
+        ) : (
+          <div className="cart-item">
+            {cart.map((curElem) => {
+              return <CartItem key={curElem.id} {...curElem} />;
+            })}
+          </div>
+        )}
         <hr />
+        <div className="cart-two-button">
+          <NavLink to="/products">
+            <Button>Continue Shopping</Button>
+          </NavLink>
+
+          {cart.length === 0 ? null : (
+            <Button className="btn btn-clear" onClick={clearCart}>
+              Clear Cart
+            </Button>
+          )}
+        </div>
+
+        {/* order total_amount */}
+        <div className="order-total--amount">
+          <div className="order-total--subdata">
+            <div>
+              <p>subtotal:</p>
+              <p>
+                <FormatPrice price={total_price} />
+              </p>
+            </div>
+            <div>
+              <p>shipping fee:</p>
+              <p>
+                <FormatPrice price={shipping_fee} />
+              </p>
+            </div>
+            <hr />
+            <div>
+              <p>order total:</p>
+              <p>
+                <FormatPrice price={shipping_fee + total_price} />
+              </p>
+            </div>
+
+          </div>
+        </div>
       </div>
     </Wrapper>
   );

@@ -5,7 +5,7 @@ import { Button } from "../pages/js/style/Button";
 import CartAmountToggle from "./CartAmountToggle";
 import { NavLink } from "react-router-dom";
 import { useCartContext } from "../redux/context/cartContext";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 const AddToCart = ({ product }) => {
   const { addToCart } = useCartContext();
@@ -25,15 +25,15 @@ const AddToCart = ({ product }) => {
   const addToCt = (e) => {
     e.preventDefault;
     addToCart(id, color, amount, product);
-    // setGoCart(true);
-    toast.success("Added Successfully");
+    setGoCart(true);
+    // toast.success("Added Successfully");
   };
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setGoCart(false);
-  //   }, 10000);
-  // }, [goCart]);
+  useEffect(() => {
+    setTimeout(() => {
+      setGoCart(false);
+    }, 8000);
+  }, [goCart]);
 
   return (
     <Wrapper>
@@ -63,17 +63,18 @@ const AddToCart = ({ product }) => {
       />
 
       {/* <NavLink to="/cart"> */}
-      <Button className="btn" onClick={addToCt}>
+      
+      {/* <Button className="btn sse-active" onClick={addToCt}>
         Add To Cart
-      </Button>
+      </Button> */}
       {/* </NavLink> */}
 
-      {goCart && (
-        <NavLink to="/cart">
-          <Button className="btn">
-            Go To Cart
-          </Button>
-        </NavLink>
+      {goCart ? (
+        <Button className="btn sse-active">Added To Cart!</Button>
+      ) : (
+        <Button className="btn" onClick={addToCt}>
+          Add To Cart
+        </Button>
       )}
     </Wrapper>
   );
@@ -129,6 +130,16 @@ const Wrapper = styled.section`
       font-size: 2.4rem;
       color: ${({ theme }) => theme.colors.btn};
     }
+  }
+
+  .btn.sse-active {
+    margin: 2rem 0;
+    background-color: rgb(0 0 0 / 0%);
+    border: 0.1rem solid rgb(98 84 243);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(98 84 243);
   }
 `;
 

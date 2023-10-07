@@ -7,7 +7,7 @@ import { useCartContext } from "../redux/context/cartContext";
 
 const Navbar = () => {
   const [menuIcon, setMenuIcon] = useState();
-  const {cart} = useCartContext()
+  const { total_item } = useCartContext();
 
   const Nav = styled.nav`
     .navbar-lists {
@@ -210,7 +210,7 @@ const Navbar = () => {
               onClick={() => setMenuIcon(false)}
             >
               <FiShoppingCart className="cart-trolley" />
-              <span className="cart-total--item"> {cart.length} </span>
+              <span className="cart-total--item">{total_item}</span>
             </NavLink>
           </li>
         </ul>

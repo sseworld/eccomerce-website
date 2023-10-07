@@ -5,9 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import { useCartContext } from "../redux/context/cartContext";
 
 const CartItem = ({ id, name, image, color, price, amount }) => {
-  const { removeItem } = useCartContext();
-  const setDecrease = () => {};
-  const setIncrement = () => {};
+  const { removeItem, setDecrease, setIncrement } = useCartContext();
 
   return (
     <div className="cart_heading grid grid-five-column">

@@ -8,7 +8,8 @@ const Header = () => {
   return (
     <MainHeader>
       <NavLink to="/">
-        <img src={img} alt="my logo img" />
+        {/* <img src={img} alt="my logo img" /> */}
+        <h1 style={{ color: "#5171F2" }}>SSE Store</h1>
       </NavLink>
       <Navbar />
     </MainHeader>
